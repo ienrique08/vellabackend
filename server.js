@@ -19,5 +19,9 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.listen(3000, () => {
   console.log('Servidor corriendo en http://localhost:3000');
+
+  const correoRoutes = require('./correo.routes');
+app.use('/api/correo', correoRoutes);
+
 });
 
