@@ -100,4 +100,37 @@ router.delete('/productos/:id', async (req, res) => {
   }
 });
 
+
+// ============================
+// Registrar una compra
+// ============================
+router.post('/compras', async (req, res) => {
+  const { formaPago, total, productos } = req.body;
+
+  try {
+    // Inserta la compra
+    const [compraResult] = await db.query(
+      'INSERT INTO compras (fecha, forma_pago, total) VALUES (NOW(), ?, ?)',
+      [formaPago, total]
+    );
+    const compraId = compraResult.insertId;
+
+    // Inserta los productos de la compra
+    const detalles = productos.map(p => [
+      compraId,
+      p.productoId,
+      p.cantidad,
+      p.precio
+    ]);
+    await db.query(
+      'INSERT INTO detalle_compra (compra_id, producto_id, cantidad, precio_unitario) VALUES ?',
+      [detalles]
+    );
+
+    res.json({ success: true, compraId });
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+});
+
 module.exports = router;
