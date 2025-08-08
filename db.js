@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
   ssl: {
     rejectUnauthorized: false
   }
-}).promise();  // <-- Aquí está la clave para usar promesas
+}).promise();  
 
 connection.connect(err => {
   if (err) {

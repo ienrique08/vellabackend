@@ -1,29 +1,27 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 
-app.use(cors({
-  origin: 'https://vella-vita.netlify.app' // Cambia por tu URL frontend
-}));
+// Importación de rutas
+const authRoutes = require('./auth.routes');
+const productosRoutes = require('./productos.routes');
 
+app.use(cors({
+  origin: 'https://vella-vita-n.netlify.app'
+}));
 app.use(express.json());
 
-const connection = require('./db');
+// Rutas principales
+app.use('/api/auth', authRoutes);
+app.use('/api', productosRoutes); // /api/productos
 
-app.get('/api/productos', async (req, res) => {
-  try {
-    const [rows] = await connection.query('SELECT * FROM productos');
-    res.json(rows);
-  } catch (err) {
-    console.error('Error al obtener productos:', err);
-    res.status(500).json({ error: 'Error al obtener productos' });
-  }
-});
+// Carpeta estática para imágenes subidas
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Aquí el resto de tus rutas...
-
+// Puerto dinámico para Render o 3000 localmente
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
