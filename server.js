@@ -10,7 +10,7 @@ const authRoutes = require('./auth.routes');
 const productosRoutes = require('./productos.routes');
 
 app.use(cors({
-  origin: 'https://dashing-piroshki-cc9369.netlify.app'
+  origin: 'https://vella-vita.netlify.app/'
 }));
 app.use(express.json());
 
