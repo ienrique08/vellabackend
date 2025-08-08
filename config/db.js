@@ -10,14 +10,14 @@ const connection = mysql.createConnection({
   ssl: {
     rejectUnauthorized: false
   }
-}).promise();
+}).promise();  // <-- Aquí está la clave para usar promesas
 
-connection.connect()
-  .then(() => {
-    console.log('Conectado a MySQL con promesas');
-  })
-  .catch(err => {
-    console.error('Error al conectar a MySQL:', err);
-  });
+connection.connect(err => {
+  if (err) {
+    console.error('Error de conexión a MySQL:', err);
+    return;
+  }
+  console.log('Conectado a MySQL en Railway');
+});
 
 module.exports = connection;
