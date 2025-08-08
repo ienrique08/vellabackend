@@ -48,7 +48,9 @@ router.get('/productos/:id', async (req, res) => {
 // ============================
 router.post('/productos', upload.single('imagen'), async (req, res) => {
   const { nombre, descripcion, precio } = req.body;
-  const imagen = req.file ? req.file.filename : null;
+const imagen = req.file 
+  ? `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`
+  : null;
 
   try {
     await db.query(
@@ -67,7 +69,10 @@ router.post('/productos', upload.single('imagen'), async (req, res) => {
 router.put('/productos/:id', upload.single('imagen'), async (req, res) => {
   const { id } = req.params;
   const { nombre, descripcion, precio } = req.body;
-  const imagen = req.file ? req.file.filename : null;
+
+  const imagen = req.file
+    ? `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`
+    : null;
 
   try {
     if (imagen) {
@@ -86,6 +91,7 @@ router.put('/productos/:id', upload.single('imagen'), async (req, res) => {
     res.status(500).json({ error: 'Error al actualizar el producto' });
   }
 });
+
 
 // ============================
 // Eliminar producto
