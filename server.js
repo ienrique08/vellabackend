@@ -8,7 +8,7 @@ const app = express();
 // Importación de rutas
 const authRoutes = require('./auth.routes');
 const productosRoutes = require('./productos.routes');
-const correoRoutes = require('./correo.routes');
+
 
 app.use(cors());
 app.use(express.json());
