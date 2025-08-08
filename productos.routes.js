@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const db = require('./config/db'); // Asegúrate que este archivo tenga la conexión MySQL
+const db = require('./db'); // Asegúrate que este archivo tenga la conexión MySQL
 
 // Configuración para guardar imágenes
 const storage = multer.diskStorage({
