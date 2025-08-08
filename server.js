@@ -9,14 +9,14 @@ const app = express();
 const authRoutes = require('./auth.routes');
 const productosRoutes = require('./productos.routes');
 
-
-app.use(cors());
+app.use(cors({
+  origin: 'https://dashing-piroshki-cc9369.netlify.app'
+}));
 app.use(express.json());
 
 // Rutas principales
 app.use('/api/auth', authRoutes);
 app.use('/api', productosRoutes); // /api/productos
-app.use('/api/correo', correoRoutes);
 
 // Carpeta estática para imágenes subidas
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
