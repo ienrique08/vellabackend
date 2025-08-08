@@ -10,7 +10,7 @@ const authRoutes = require('./auth.routes');
 const productosRoutes = require('./productos.routes');
 
 app.use(cors({
-  origin: 'https://vella-vita-n.netlify.app'
+  origin: 'https://vella-vita.netlify.app'
 }));
 app.use(express.json());
 
